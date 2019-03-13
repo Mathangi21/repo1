@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="FabrikamFiber.CallCenterApplicationType" ApplicationTypeVersion="1.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric" ManifestId="c24ec238-43c1-4c31-99e5-0c645fad1e6c">
+  <Parameters>
+    <Parameter Name="FabrikamFiber.Web_InstanceCount" DefaultValue="-1" />
+    <Parameter Name="FabrikamFiber.Web_Isolation" DefaultValue="default" />
+  </Parameters>
+  <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
+       should match the Name and Version attributes of the ServiceManifest element defined in the 
+       ServiceManifest.xml file. -->
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="FabrikamFiber.WebPkg" ServiceManifestVersion="1.0.0" />
+    <Policies>
+      <ContainerHostPolicies CodePackageRef="Code" Isolation="[FabrikamFiber.Web_Isolation]">
+        <PortBinding ContainerPort="80" EndpointRef="FabrikamFiber.WebTypeEndpoint" />
+        <RepositoryCredentials AccountName="mathangi2101reg" Password="MIIB/gYJKoZIhvcNAQcDoIIB7zCCAesCAQAxggFmMIIBYgIBADBKMDYxNDAyBgNVBAMTK2ZhYnJpa2FtZmliZXIuc291dGhpbmRpYS5jbG91ZGFwcC5henVyZS5jb20CECfsgfxRMkFvkvmy38lauNswDQYJKoZIhvcNAQEHMAAEggEAEPTDZOZJWOZamLN/UXiSUQKoPQ5T6vkG6vdvVKAr3/vG5lPDXv5RwhPrnsTpa43UXAlxQ30x7NdNxNctA4bG2hzZH6gokpCqdgUTaDHRZZt8NktQ0EQvbDnWwcSNIAZRMKoyb3dAMuH5qD1iruYxQzlCuZz1F77S/I2EyONnKybN6BwZgh5cqIYE2JrDgr2+SByfOXyYB8WOzT5wKbupnRbRHaajvudMd0tgXb2YFDoFgQzsqheMh5FISl4KsJo174Kz1a/QxeSp/VjpAGOv3picflbiFna8qRj54p0iJcNabkYa59kqctlrLTKsG2A50Uwv2fwi1c+8vkdJTMeahTB8BgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBDBPcCA1WnAm0tBpTC/9SCLgFCV1Vz1z0PphaUASlelXI3ftBcVLwFKoLBv/tMkz5wAD9w6LxRaOBgd9j2+ddRVPuwbJB1Uaeqj87KOySHvMoG4+EoYUZ6KuDSOuJ8nf6TjYA==" PasswordEncrypted="true" />
+      </ContainerHostPolicies>
+    </Policies>
+  </ServiceManifestImport>
+  <DefaultServices>
+    <!-- The section below creates instances of service types, when an instance of this 
+         application type is created. You can also create one or more instances of service type using the 
+         ServiceFabric PowerShell module.
+         
+         The attribute ServiceTypeName below must match the name defined in the imported ServiceManifest.xml file. -->
+    <Service Name="FabrikamFiber.Web" ServicePackageActivationMode="ExclusiveProcess">
+      <StatelessService ServiceTypeName="FabrikamFiber.WebType" InstanceCount="[FabrikamFiber.Web_InstanceCount]">
+        <SingletonPartition />
+      </StatelessService>
+    </Service>
+  </DefaultServices>
+</ApplicationManifest>
